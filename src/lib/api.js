@@ -86,6 +86,10 @@ export async function getLaunch(id) {
   const specificLaunch = el('ul', {class: 'results'});
   const url = new URL('launch', API_URL);
   url.searchParams.set('search', id);
+
+
+  
+
   
   /* TODO útfæra */
   let launchId;

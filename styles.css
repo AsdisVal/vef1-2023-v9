@@ -40,17 +40,27 @@ input[type='number'] {
   padding-inline-start: calc(var(--spacing) / 2);
 }
 
+input {
+  /* width: 300px; */
+  width: 238px;
+  margin-right: var(--spacing);
+}
+
+
 button {
   padding-inline: calc(var(--spacing) / 2);
+  font-weight: 700;
 }
 
 h1 {
   font-size: 2rem;
-  margin-block-end: var(--spacing);
+  /* margin-block-end: var(--spacing); */
 }
+
 
 h2 {
   font-size: 1.5rem;
+  padding-bottom: var(--spacing);
 }
 
 main {
@@ -63,4 +73,27 @@ main {
   max-width: var(--max-width);
 }
 
-/* TODO nánari stílar */
+form {
+  align-self: center;
+  justify-content: space-between;
+}
+
+.heading {
+  align-self: center;
+}
+
+.result:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.geimferd {
+  font-weight: 700;
+}
+
+
+.result {
+  padding: var(--spacing);
+  width: var(--max-width);
+}
+
+

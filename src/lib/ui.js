@@ -108,7 +108,7 @@ function createSearchResults(results, query) {
    const headerElement = el(
     'div',
       {class: 'results'},
-      el('h2', {class: 'result_title'}, `Niðurstöður fyrir ,,${query}"`
+      el('h2', {class: 'result_title'}, `Leitarniðurstöður fyrir ,,${query}"`
       ),
    );
 
@@ -118,9 +118,9 @@ function createSearchResults(results, query) {
     const resultElement = el(
       'div',
       {class: 'result'},
-      el('h2', { class: 'result__mission'}, el('a', {href: `/?id=${result.id}`}, result.name)),
+      el('p', { class: 'result__mission'}, el('a', {href: `/?id=${result.id}`}, result.name)),
       el('p', { class: 'result__status'}, `🚀 ${result.status.name}`),
-      el('p', { class: 'result__name'}, `Geimferð: ${result.mission}`),
+      el('p', {class: 'result__name'}, el('span', { class: 'geimferd'}, 'Geimferð:'), ` ${result.mission}`),
       
       // 'li',
       // { class: 'result' },
@@ -207,15 +207,17 @@ export function renderFrontpage(
  * @param {string} id Auðkenni geimskots.
  */
 export async function renderDetails(parentElement, id) {
+  
   const container = el('main', {});
   const backElement = el(
     'div',
     { class: 'back' },
     el('a', { href: '/' }, 'Til baka')
   );
-
+  
   parentElement.appendChild(container);
   parentElement.appendChild(backElement);
+
 
   /* TODO setja loading state og sækja gögn */
   setLoading(parentElement); // þarf að bæta searchform?
@@ -228,10 +230,11 @@ export async function renderDetails(parentElement, id) {
   if (!result) {
     /* TODO útfæra villu og tómt state */
     parentElement.appendChild(el('p', {}, 'Ekkert geimskot fannst. '));
+    console.log('Hæ');
     return null;
   }
   console.log('hvað er að gerast');
   /* TODO útfæra ef gögn */
   parentElement.appendChild(createSearchResults(result.image, id));
-  return null;
+  return id;
 }
