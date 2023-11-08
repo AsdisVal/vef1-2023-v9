@@ -1,3 +1,5 @@
+// import { name } from '../browser-sync';
+import {el} from './elements.js';
 /**
  * API föll.
  * @see https://lldev.thespacedevs.com/2.2.0/swagger/
@@ -38,8 +40,17 @@ export async function searchLaunches(query) {
   url.searchParams.set('mode', 'list');
 
   let response;
+  // try er það sem við ætlum að reyna að framkvæma
+  // við setjum try utan um td fetch, af því við erum að gera kall út fyrir forritið okkar
+  // yfir netið. Á einhverja slóð sem gæti skilað villu.
   try {
+    // fetch skilar einhverju loforði á responsi.
     response = await fetch(url);
+    // response inniheldur einhver gögn um það hvernig respnseið fór fram. 
+    // Dæmi: Við förum inná einhverja slóð: Eitthvað fannst ekki, skilar einhverjum gögnum þannig
+    // þurfjum að bregðast úr því
+
+    // catch er það sem gerist ef að villa á sér stað
   } catch (e) {
     console.error('Villa kom upp við að sækja gögn');
     return null;
@@ -55,6 +66,7 @@ export async function searchLaunches(query) {
   }
 
   let json;
+  
   try {
     json = await response.json();
   } catch (e) {
@@ -71,5 +83,46 @@ export async function searchLaunches(query) {
  * @returns {Promise<LaunchDetail | null>} Geimskot.
  */
 export async function getLaunch(id) {
+  const specificLaunch = el('ul', {class: 'results'});
+  const url = new URL('launch', API_URL);
+  url.searchParams.set('search', id);
+  
   /* TODO útfæra */
+  let launchId;
+  // url = 
+  try {
+  launchId = await fetch(url)
+  }catch (e) {
+    console.error('Villa kom upp við að sækja gögn');
+    return null;
+  }
+
+  if (!launchId.ok) {
+    console.error(
+      'Villa við að sækja gögn, ekki 200 staða',
+      launchId.status,
+      launchId.statusText
+    );
+    return null;
+  }
+
+  
+  const specificLaunchHeaderElement = el(
+    'div',
+      {class: 'results'},
+      el('h2', {class: 'specific_launch_result_mission'}, el('p', name)),
+  );
+  
+  specificLaunch.appendChild(specificLaunchHeaderElement);
+
+  let json;
+  
+  try {
+    json = await launchId.json();
+  } catch (e) {
+    console.error('Villa við að vinna úr JSON');
+    return null;
+  }
+
+  return json.id;
 }
