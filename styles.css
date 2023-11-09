@@ -97,7 +97,8 @@ form {
 }
 
 .resultid {
-  padding: var(--spacing);
+  /* padding: var(--spacing); */
+  padding-bottom: var(--spacing);
   width: var(--max-width);
   display: flex;
   flex-direction: column;
@@ -106,6 +107,8 @@ form {
 }
 
 .resultIdParent {
+  /* padding: var(--spacing); */
+  /* width: var(--max-width); */
 display: flex;
 flex-direction:column;
 align-items: center;
@@ -117,13 +120,17 @@ align-items: center;
 
 .back {
   padding: var(--spacing);
-  width: var(--max-width);
+  max-width: var(--max-width);
 }
 
 h1 .result_title {
 
   display: flex;
   align-self: center;
+}
+
+img {
+  max-width: var(--max-width);
 }
 
 
