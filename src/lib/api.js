@@ -95,7 +95,7 @@ export async function getLaunch(id) {
     return null;
   }
 
-  console.log(sponse.status);
+  
   if (!sponse.ok) {
     console.error(
       'Villa við að sækja gögnin í sponse, ekki 200 staða',
