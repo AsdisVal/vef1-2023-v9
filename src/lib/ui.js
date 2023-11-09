@@ -118,9 +118,9 @@ function createSearchResults(results, query) {
     const resultElement = el(
       'div',
       {class: 'result'},
-      el('p', { class: 'result__mission'}, el('a', {href: `/?id=${result.id}`}, result.name)),
+      el('p', { class: 'result__id'}, el('a', {href: `/?id=${result.id}`}, result.name)),
       el('p', { class: 'result__status'}, `🚀 ${result.status.name}`),
-      el('p', {class: 'result__name'}, el('span', { class: 'geimferd'}, 'Geimferð:'), ` ${result.mission}`),
+      el('p', {class: 'result__mission'}, el('span', { class: 'geimferd'}, 'Geimferð:'), ` ${result.mission}`),
       
       // 'li',
       // { class: 'result' },
@@ -216,25 +216,48 @@ export async function renderDetails(parentElement, id) {
   );
   
   parentElement.appendChild(container);
-  parentElement.appendChild(backElement);
+  
 
 
   /* TODO setja loading state og sækja gögn */
   setLoading(parentElement); // þarf að bæta searchform?
-  const result = await getLaunch(id);
-  console.log(id);
+  const resultid = await getLaunch(id);  
   setNotLoading(parentElement);
     
   // Tómt og villu state, við gerum ekki greinarmun á þessu tvennu, ef við
   // myndum vilja gera það þyrftum við að skilgreina stöðu fyrir niðurstöðu
-  if (!result) {
+  if (!resultid) {
     /* TODO útfæra villu og tómt state */
     parentElement.appendChild(el('p', {}, 'Ekkert geimskot fannst. '));
-    console.log('Hæ');
     return null;
   }
-  console.log('hvað er að gerast');
-  /* TODO útfæra ef gögn */
-  parentElement.appendChild(createSearchResults(result.image, id));
-  return id;
+
+  
+    /* TODO útfæra ef gögn */
+  const resultEl = el(
+    
+    'div',
+    { class: 'resultid'},
+    el('p', {}, 'Hér er geimskotid.'),
+    el('h2', {class: 'result_title'}, resultid.name),
+    el('p', {class: 'window_start'}, resultid.window_start),
+    el('p', {class: 'window_start'}, resultid.window_end),
+    el('h2', {class: 'status'}, el('span', { class: 'geimferd'}, 'Staða: '), `${resultid.status.name}`),
+    el('p', {class: 'launchMission'}, `${resultid.status.description}`),
+    el('h2', {}, el('span', { class: 'geimferd'}, 'Geimferð: '), `${resultid.mission.name}`),
+    el('p', {}, `${resultid.mission.description}`),
+
+  );
+  
+
+  if(resultid.image) {
+    resultEl.appendChild(el('img', {class: 'launch__details', src: resultid.image}))
+  }
+  parentElement.appendChild(resultEl);
+  parentElement.appendChild(backElement);
+  // parentElement.appendChild(createSearchResults(result.image, id));
+  // return id;
+  return resultid;
+
+
 }

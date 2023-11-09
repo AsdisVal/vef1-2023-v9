@@ -1,5 +1,5 @@
 // import { name } from '../browser-sync';
-import {el} from './elements.js';
+
 /**
  * API föll.
  * @see https://lldev.thespacedevs.com/2.2.0/swagger/
@@ -49,7 +49,6 @@ export async function searchLaunches(query) {
     // response inniheldur einhver gögn um það hvernig respnseið fór fram. 
     // Dæmi: Við förum inná einhverja slóð: Eitthvað fannst ekki, skilar einhverjum gögnum þannig
     // þurfjum að bregðast úr því
-
     // catch er það sem gerist ef að villa á sér stað
   } catch (e) {
     console.error('Villa kom upp við að sækja gögn');
@@ -83,50 +82,36 @@ export async function searchLaunches(query) {
  * @returns {Promise<LaunchDetail | null>} Geimskot.
  */
 export async function getLaunch(id) {
-  const specificLaunch = el('ul', {class: 'results'});
-  const url = new URL('launch', API_URL);
-  url.searchParams.set('search', id);
+  const url = new URL(`launch/${id}`, API_URL);
+ 
 
-
-  
-
-  
   /* TODO útfæra */
-  let launchId;
+  let sponse;
   // url = 
   try {
-  launchId = await fetch(url)
+  sponse = await fetch(url);
   }catch (e) {
     console.error('Villa kom upp við að sækja gögn');
     return null;
   }
 
-  if (!launchId.ok) {
+  console.log(sponse.status);
+  if (!sponse.ok) {
     console.error(
-      'Villa við að sækja gögn, ekki 200 staða',
-      launchId.status,
-      launchId.statusText
+      'Villa við að sækja gögnin í sponse, ekki 200 staða',
+      sponse.status,
+      sponse.statusText
     );
     return null;
   }
-
-  
-  const specificLaunchHeaderElement = el(
-    'div',
-      {class: 'results'},
-      el('h2', {class: 'specific_launch_result_mission'}, el('p', name)),
-  );
-  
-  specificLaunch.appendChild(specificLaunchHeaderElement);
-
   let json;
   
   try {
-    json = await launchId.json();
+    json = await sponse.json();
   } catch (e) {
     console.error('Villa við að vinna úr JSON');
     return null;
   }
 
-  return json.id;
+  return json;
 }
