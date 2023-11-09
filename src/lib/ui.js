@@ -209,11 +209,7 @@ export function renderFrontpage(
 export async function renderDetails(parentElement, id) {
   
   const container = el('main', {});
-  const backElement = el(
-    'div',
-    { class: 'back' },
-    el('a', { href: '/' }, 'Til baka')
-  );
+  
   
   parentElement.appendChild(container);
   
@@ -239,7 +235,6 @@ export async function renderDetails(parentElement, id) {
   
     /* TODO útfæra ef gögn */
   const resultEl = el(
-
     'div', {class: 'resultIdParent'},
     el('div',
     { class: 'resultid'},
@@ -249,18 +244,27 @@ export async function renderDetails(parentElement, id) {
     el('h2', {class: 'status'}, el('span', { class: 'geimferd'}, 'Staða: '), `${resultid.status.name}`),
     el('p', {class: 'launchMission'}, `${resultid.status.description}`),
     el('h2', {}, el('span', { class: 'geimferd'}, 'Geimferð: '), `${resultid.mission.name}`),
-    el('p', {}, `${resultid.mission.description}`),)
-    
-    
-  );
+    el('p', {}, `${resultid.mission.description}`),
+    el('img', {class: 'launch__details', src: resultid.image}),
+    el('a', { href: '/' }, 'Til baka')
+  )); 
+
+  // const backElement = el(
+  //   'div', {class: 'resultIdParent'},
+  //   el('div',{ class: 'back' },
+  //   el('a', { href: '/' }, 'Til baka')
+  // ));
   
   resultElParentElement.appendChild(resultEl);
 
-  if(resultid.image) {
-    resultEl.appendChild(el('img', {class: 'launch__details', src: resultid.image}))
-  }
+  // if(resultid.image) {
+  //   resultEl.appendChild(el('img', {class: 'launch__details', src: resultid.image}))
+  // }
   parentElement.appendChild(resultEl);
-  parentElement.appendChild(backElement);
+
+  
+
+  // parentElement.appendChild(backElement);
   // parentElement.appendChild(createSearchResults(result.image, id));
   // return id;
   return resultid;
