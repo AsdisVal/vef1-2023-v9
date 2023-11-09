@@ -95,9 +95,9 @@ function createSearchResults(results, query) {
 
   if (results.length === 0) {
     const noResultsElement = el(
-      'li',
+      'div',
       {},
-      `Engar niðurstöður fyrir leit að ${query}`
+      `Engar niðurstöður fyrir leit að ${query} 😢`
     );
     list.appendChild(noResultsElement);
     return list;
@@ -224,7 +224,7 @@ export async function renderDetails(parentElement, id) {
   // myndum vilja gera það þyrftum við að skilgreina stöðu fyrir niðurstöðu
   if (!resultid) {
     /* TODO útfæra villu og tómt state */
-    parentElement.appendChild(el('p', {}, 'Ekkert geimskot fannst. '));
+    parentElement.appendChild(el('p', {}, 'Ekkert geimskot fannst. 😢'));
     return null;
   }
 
