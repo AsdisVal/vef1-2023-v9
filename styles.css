@@ -96,4 +96,35 @@ form {
   width: var(--max-width);
 }
 
+.resultid {
+  padding: var(--spacing);
+  width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.resultIdParent {
+display: flex;
+flex-direction:column;
+align-items: center;
+}
+.resultid h1 {
+
+  text-align: center;
+}
+
+.back {
+  padding: var(--spacing);
+  width: var(--max-width);
+}
+
+h1 .result_title {
+
+  display: flex;
+  align-self: center;
+}
+
+
 

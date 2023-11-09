@@ -232,23 +232,29 @@ export async function renderDetails(parentElement, id) {
     return null;
   }
 
+  const resultElParentElement = el(
+    'div', {class: 'resultIdParent'}
+    
+  );
   
     /* TODO útfæra ef gögn */
   const resultEl = el(
-    
-    'div',
+
+    'div', {class: 'resultIdParent'},
+    el('div',
     { class: 'resultid'},
-    el('p', {}, 'Hér er geimskotid.'),
-    el('h2', {class: 'result_title'}, resultid.name),
+    el('h1', {class: 'result_title'}, resultid.name),
     el('p', {class: 'window_start'}, resultid.window_start),
     el('p', {class: 'window_start'}, resultid.window_end),
     el('h2', {class: 'status'}, el('span', { class: 'geimferd'}, 'Staða: '), `${resultid.status.name}`),
     el('p', {class: 'launchMission'}, `${resultid.status.description}`),
     el('h2', {}, el('span', { class: 'geimferd'}, 'Geimferð: '), `${resultid.mission.name}`),
-    el('p', {}, `${resultid.mission.description}`),
-
+    el('p', {}, `${resultid.mission.description}`),)
+    
+    
   );
   
+  resultElParentElement.appendChild(resultEl);
 
   if(resultid.image) {
     resultEl.appendChild(el('img', {class: 'launch__details', src: resultid.image}))
